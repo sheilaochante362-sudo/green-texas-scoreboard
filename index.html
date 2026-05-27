@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>绿色德州实时记分大屏</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="display">
+    <main class="stage" aria-label="绿色德州实时记分大屏">
+      <section class="scoreboard" id="scoreboard">
+        <div class="beam beam-a"></div>
+        <div class="beam beam-b"></div>
+        <div class="beam beam-c"></div>
+
+        <aside class="left-rail" aria-label="赛事信息">
+          <div class="brand">
+            <img class="brand-logo" src="./bluff-bar-logo.jpg" alt="Bluff Bar" />
+          </div>
+
+          <div class="stacked-stat">
+            <div class="cn">当前级别</div>
+            <div class="en">LEVEL</div>
+            <strong id="levelValue">1</strong>
+          </div>
+
+          <div class="stacked-stat">
+            <div class="cn">参赛人数</div>
+            <div class="en">PLAYERS</div>
+            <strong><span id="playerValue">9</span>/<span id="playerMaxValue">9</span></strong>
+          </div>
+
+          <div class="stacked-stat">
+            <div class="cn">奖励人数</div>
+            <div class="en">PRIZE PLAYER</div>
+            <strong id="prizeValue">3</strong>
+          </div>
+        </aside>
+
+        <section class="center-field" aria-label="计时和盲注">
+          <div class="level-duration">升盲时间 <strong id="levelMinutesValue">25</strong>min</div>
+          <div class="main-clock" id="mainClock">25:00</div>
+
+          <div class="blind-board">
+            <div class="blind-row">
+              <div>
+                <span class="cn">基础分:</span>
+                <span class="en">BLINDS</span>
+              </div>
+              <strong id="blindsValue">10/20</strong>
+            </div>
+            <div class="blind-row">
+              <div>
+                <span class="cn">预置分:</span>
+                <span class="en">ANTE</span>
+              </div>
+              <strong id="anteValue">0</strong>
+            </div>
+            <div class="blind-row">
+              <div>
+                <span class="cn">下个级别:</span>
+                <span class="en">NEXT LEVEL</span>
+              </div>
+              <strong id="nextLevelValue">20/40</strong>
+            </div>
+          </div>
+        </section>
+
+        <aside class="right-rail" aria-label="倒计时和筹码">
+          <div class="wall-clock" id="wallClock">12:43:08</div>
+
+          <div class="side-stat">
+            <div class="cn">截止报名</div>
+            <div class="en">ENTRY ENDS IN</div>
+            <strong id="entryClock">00:58:03</strong>
+          </div>
+
+          <div class="side-stat">
+            <div class="cn">下次休息</div>
+            <div class="en">NEXT BREAK IN</div>
+            <strong id="breakClock">00:18:03</strong>
+          </div>
+
+          <div class="side-stat">
+            <div class="cn">平均记分牌</div>
+            <div class="en">AVG.CHIPS</div>
+            <strong id="avgChipsValue">3000</strong>
+          </div>
+
+          <div class="side-stat">
+            <div class="cn">总计分牌</div>
+            <div class="en">TOTAL CHIPS</div>
+            <strong id="totalChipsValue">27000</strong>
+          </div>
+        </aside>
+
+        <footer class="notice">绿色竞技，禁止赌博</footer>
+      </section>
+      <div class="connection-status" id="connectionStatus">单机模式</div>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

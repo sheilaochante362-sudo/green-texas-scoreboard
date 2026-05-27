@@ -1,0 +1,26 @@
+最简单免费部署建议用 Render 或 Koyeb。
+
+重要：
+- 这个网站有后台实时同步，不能当纯前端直接放 Vercel。
+- 控制台密码不要公开写在网页里，云平台上用环境变量 CONTROL_PASSWORD。
+- 免费平台可能会休眠，第一次打开可能慢几十秒。
+- 免费平台的临时磁盘可能会在重启后丢状态，正式长期比赛建议后面接数据库。
+
+Render 大概步骤：
+1. 注册 Render。
+2. 新建 Web Service。
+3. 连接 GitHub 项目。
+4. Runtime/Environment 选 Docker。
+5. 环境变量加 CONTROL_PASSWORD，值自己设置，例如 bluff2026。
+6. 部署成功后会得到一个 https://xxx.onrender.com 地址。
+7. 大屏： https://xxx.onrender.com/
+8. 控制台： https://xxx.onrender.com/control
+
+Koyeb 大概步骤：
+1. 注册 Koyeb。
+2. Create Service。
+3. 连接 GitHub 项目。
+4. 选择 Dockerfile 部署。
+5. 端口填 4173，或者让平台自动读取。
+6. 环境变量加 CONTROL_PASSWORD。
+7. 部署成功后使用它给你的 https 地址。

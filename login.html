@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>控制台登录</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body class="admin-body">
+    <main class="login-screen" aria-label="控制台登录">
+      <form class="login-panel" id="loginForm">
+        <img class="login-logo" src="./bluff-bar-logo.jpg" alt="Bluff Bar" />
+        <h1>控制台登录</h1>
+        <p>输入密码后才能修改赛事数据。</p>
+        <label>
+          密码
+          <input id="passwordInput" name="password" type="password" autocomplete="current-password" autofocus />
+        </label>
+        <button class="primary-button" type="submit">登录</button>
+        <div class="login-error" id="loginError" role="alert"></div>
+      </form>
+    </main>
+
+    <script>
+      const form = document.querySelector("#loginForm");
+      const input = document.querySelector("#passwordInput");
+      const error = document.querySelector("#loginError");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        error.textContent = "";
+
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ password: input.value }),
+        });
+
+        if (response.ok) {
+          location.href = "/control";
+          return;
+        }
+
+        error.textContent = "密码不对";
+        input.select();
+      });
+    </script>
+  </body>
+</html>

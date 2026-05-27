@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>赛事控制台</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body data-page="control" class="admin-body">
+    <main class="admin-screen" aria-label="赛事控制台">
+      <header class="admin-topbar">
+        <div>
+          <h1>赛事控制台</h1>
+          <p id="connectionStatus">正在连接大屏</p>
+        </div>
+        <a class="display-link" href="/" target="_blank" rel="noreferrer">打开大屏</a>
+      </header>
+
+      <section class="live-strip" aria-label="实时概览">
+        <div>
+          <span>当前级别</span>
+          <strong id="levelValue">1</strong>
+        </div>
+        <div>
+          <span>本级倒计时</span>
+          <strong id="mainClock">25:00</strong>
+        </div>
+        <div>
+          <span>参赛人数</span>
+          <strong><span id="playerValue">9</span>/<span id="playerMaxValue">9</span></strong>
+        </div>
+        <div>
+          <span>手数</span>
+          <strong id="handCountValue">0</strong>
+        </div>
+        <div>
+          <span>平均记分牌</span>
+          <strong id="avgChipsValue">3000</strong>
+        </div>
+        <div>
+          <span>总计分牌</span>
+          <strong id="totalChipsValue">27000</strong>
+        </div>
+      </section>
+
+      <section class="quick-actions" aria-label="快速操作">
+        <button class="primary-button" id="toggleRun" type="button">开始</button>
+        <button class="ghost-button" id="resetLevel" type="button">重置计时</button>
+        <button class="ghost-button" id="nextLevel" type="button">下一级</button>
+        <button class="ghost-button" id="playerMinus" type="button">人数 -1</button>
+        <button class="ghost-button" id="playerPlus" type="button">人数 +1</button>
+        <button class="ghost-button" id="handMinus" type="button">手数 -1</button>
+        <button class="ghost-button" id="handPlus" type="button">手数 +1</button>
+        <button class="ghost-button" id="soundTest" type="button">测试提示音</button>
+      </section>
+
+      <form class="admin-form" id="controlPanel" aria-label="赛事参数">
+        <section class="form-section">
+          <h2>基础信息</h2>
+          <div class="control-grid">
+            <label>
+              级别
+              <input id="levelInput" name="level" type="number" min="1" step="1" />
+            </label>
+            <label>
+              当前人数
+              <input id="playersInput" name="players" type="number" min="0" step="1" />
+            </label>
+            <label>
+              满员人数
+              <input id="playerMaxInput" name="playerMax" type="number" min="1" step="1" />
+            </label>
+            <label>
+              手数
+              <input id="handCountInput" name="handCount" type="number" min="0" step="1" />
+            </label>
+            <label>
+              每手记分牌
+              <input id="buyInChipsInput" name="buyInChips" type="number" min="0" step="100" />
+            </label>
+            <label>
+              奖励人数
+              <input id="prizeInput" name="prizePlayers" type="number" min="0" step="1" />
+            </label>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>计时</h2>
+          <div class="control-grid">
+            <label>
+              升盲分钟
+              <input id="levelMinutesInput" name="levelMinutes" type="number" min="1" step="1" />
+            </label>
+            <label>
+              报名分钟
+              <input id="entryMinutesInput" name="entryMinutes" type="number" min="0" step="1" />
+            </label>
+            <label>
+              休息分钟
+              <input id="breakMinutesInput" name="breakMinutes" type="number" min="0" step="1" />
+            </label>
+          </div>
+        </section>
+
+        <section class="form-section">
+          <h2>升盲规则</h2>
+          <div class="blind-structure" aria-label="升盲规则">
+            <span>1</span><strong>10/20</strong><em>预置 0</em>
+            <span>2</span><strong>20/40</strong><em>预置 0</em>
+            <span>3</span><strong>50/100</strong><em>预置 0</em>
+            <span>4</span><strong>100/200</strong><em>预置 0</em>
+            <span>5</span><strong>200/400</strong><em>预置 400</em>
+            <span>6</span><strong>300/600</strong><em>预置 600</em>
+            <span>7</span><strong>400/800</strong><em>预置 800</em>
+            <span>8</span><strong>500/1000</strong><em>预置 1000</em>
+            <span>9</span><strong>700/1400</strong><em>预置 1400</em>
+            <span>10</span><strong>1000/2000</strong><em>预置 2000</em>
+            <span>11</span><strong>2000/4000</strong><em>预置 4000</em>
+            <span>12</span><strong>3000/6000</strong><em>预置 6000</em>
+          </div>
+        </section>
+      </form>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: green-texas-scoreboard
+    env: docker
+    plan: free
+    autoDeploy: true
+    envVars:
+      - key: CONTROL_PASSWORD
+        sync: false
