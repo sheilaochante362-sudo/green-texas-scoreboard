@@ -57,7 +57,10 @@ let lastLocalTick = Date.now();
 let connected = !isRemote;
 let isEditing = false;
 let knownLevel = null;
+let knownPlayers = null;
 let audioContext = null;
+let speechQueue = [];
+let isSpeaking = false;
 
 const el = {
   scoreboard: byId("scoreboard"),
@@ -219,7 +222,7 @@ function unlockAudio() {
   }
 }
 
-function playLevelSound() {
+function playChime() {
   const context = unlockAudio();
   if (!context) {
     return;
@@ -241,6 +244,49 @@ function playLevelSound() {
   });
 }
 
+function speak(text) {
+  unlockAudio();
+
+  if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
+    playChime();
+    return;
+  }
+
+  speechQueue.push(text);
+  drainSpeechQueue();
+}
+
+function drainSpeechQueue() {
+  if (isSpeaking || speechQueue.length === 0) {
+    return;
+  }
+
+  const utterance = new SpeechSynthesisUtterance(speechQueue.shift());
+  utterance.lang = "zh-CN";
+  utterance.rate = 0.95;
+  utterance.pitch = 1;
+  utterance.volume = 1;
+  utterance.onend = () => {
+    isSpeaking = false;
+    drainSpeechQueue();
+  };
+  utterance.onerror = () => {
+    isSpeaking = false;
+    drainSpeechQueue();
+  };
+
+  isSpeaking = true;
+  window.speechSynthesis.speak(utterance);
+}
+
+function playLevelSound(targetLevel = state.level + 1) {
+  speak(`升盲啦，下一个是第${targetLevel}级别`);
+}
+
+function playFinalTableSound() {
+  speak("恭喜进入决赛圈");
+}
+
 function watchLevelSound() {
   if (knownLevel === null) {
     knownLevel = state.level;
@@ -248,10 +294,23 @@ function watchLevelSound() {
   }
 
   if (state.level > knownLevel) {
-    playLevelSound();
+    playLevelSound(state.level);
   }
 
   knownLevel = state.level;
+}
+
+function watchPlayerAnnouncements() {
+  if (knownPlayers === null) {
+    knownPlayers = state.players;
+    return;
+  }
+
+  if (knownPlayers > 2 && state.players === 2) {
+    playFinalTableSound();
+  }
+
+  knownPlayers = state.players;
 }
 
 function render() {
@@ -277,6 +336,7 @@ function render() {
   setText(el.toggleRun, state.running ? "暂停" : "开始");
 
   watchLevelSound();
+  watchPlayerAnnouncements();
   syncInputs();
   setConnectionStatus();
 }

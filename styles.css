@@ -1,13 +1,13 @@
 :root {
   color-scheme: dark;
   --ink: #f3f8f8;
-  --muted: #a7c8c8;
-  --line: rgba(223, 255, 252, 0.42);
+  --muted: #ffd9b0;
+  --line: rgba(255, 230, 166, 0.44);
   --panel: rgba(8, 17, 22, 0.84);
-  --field: #071016;
-  --cyan: #18c7d3;
-  --green: #39e35e;
-  --mint: #b8fff5;
+  --field: #260807;
+  --cyan: #ffd27a;
+  --green: #f5c35a;
+  --mint: #fff1c7;
   --warning: #ffe08a;
 }
 
@@ -22,7 +22,7 @@ body {
 
 body {
   margin: 0;
-  background: #05090c;
+  background: #170504;
   color: var(--ink);
   font-family: "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif;
   overflow: hidden;
@@ -37,25 +37,29 @@ input {
   min-height: 100dvh;
   display: grid;
   place-items: center;
-  padding: 18px;
-  background: #05090c;
+  padding: 8px;
+  background:
+    radial-gradient(circle at 16% 20%, rgba(239, 177, 70, 0.16), transparent 28%),
+    linear-gradient(145deg, #260807, #120403);
 }
 
 .scoreboard {
   position: relative;
-  width: min(100%, 1280px);
-  height: min(100dvh - 36px, 720px);
-  min-height: 600px;
+  width: min(calc(100vw - 16px), calc((100dvh - 16px) * 16 / 9), 1280px);
+  aspect-ratio: 16 / 9;
+  height: auto;
+  min-height: 0;
   display: grid;
-  grid-template-columns: minmax(238px, 0.92fr) minmax(560px, 2.15fr) minmax(238px, 0.92fr);
+  grid-template-columns: minmax(210px, 0.88fr) minmax(520px, 2.2fr) minmax(210px, 0.88fr);
   gap: 0;
   overflow: hidden;
   isolation: isolate;
-  border: 1px solid rgba(190, 255, 246, 0.34);
+  border: 1px solid rgba(255, 232, 173, 0.28);
   background:
-    linear-gradient(115deg, rgba(16, 197, 210, 0.16) 0 12%, transparent 12% 26%, rgba(55, 229, 99, 0.12) 26% 31%, transparent 31% 100%),
-    linear-gradient(150deg, #0e2028 0%, #071118 44%, #102334 100%);
-  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.5);
+    radial-gradient(circle at 74% 36%, rgba(255, 113, 72, 0.46), transparent 30%),
+    radial-gradient(circle at 17% 16%, rgba(255, 207, 111, 0.2), transparent 28%),
+    linear-gradient(133deg, #7b1c16 0%, #c92c28 46%, #7f1816 100%);
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.54);
 }
 
 .scoreboard::before {
@@ -64,9 +68,9 @@ input {
   content: "";
   z-index: -2;
   background:
-    repeating-linear-gradient(100deg, transparent 0 64px, rgba(54, 234, 225, 0.09) 66px 70px),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 38%);
-  opacity: 0.82;
+    repeating-linear-gradient(116deg, transparent 0 42px, rgba(255, 236, 198, 0.075) 43px 45px),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1), transparent 34%);
+  opacity: 0.88;
 }
 
 .scoreboard::after {
@@ -74,7 +78,9 @@ input {
   inset: 0;
   content: "";
   z-index: -1;
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.22), transparent 32%, transparent 68%, rgba(0, 0, 0, 0.22));
+  background:
+    linear-gradient(150deg, transparent 0 51%, rgba(255, 212, 118, 0.8) 51.2%, rgba(255, 242, 194, 0.92) 51.45%, rgba(120, 39, 20, 0.2) 52%, transparent 52.5%),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.28), transparent 32%, transparent 67%, rgba(0, 0, 0, 0.36));
   pointer-events: none;
 }
 
@@ -89,12 +95,12 @@ input {
   position: absolute;
   top: -22%;
   bottom: -22%;
-  width: 140px;
-  transform: rotate(37deg);
-  border-left: 1px solid rgba(206, 255, 251, 0.18);
-  border-right: 1px solid rgba(206, 255, 251, 0.16);
-  background: linear-gradient(90deg, rgba(18, 206, 207, 0.1), rgba(93, 255, 222, 0.5), rgba(28, 77, 137, 0.12));
-  filter: saturate(1.2);
+  width: 118px;
+  transform: rotate(34deg);
+  border-left: 1px solid rgba(255, 232, 170, 0.2);
+  border-right: 1px solid rgba(255, 232, 170, 0.14);
+  background: linear-gradient(90deg, rgba(92, 22, 12, 0.05), rgba(255, 215, 124, 0.38), rgba(99, 19, 13, 0.08));
+  filter: saturate(1.12);
   z-index: -1;
 }
 
@@ -104,8 +110,8 @@ input {
 
 .beam-b {
   left: 52%;
-  width: 190px;
-  background: linear-gradient(90deg, rgba(18, 206, 207, 0.08), rgba(56, 235, 111, 0.34), rgba(28, 77, 137, 0.12));
+  width: 165px;
+  background: linear-gradient(90deg, rgba(92, 22, 12, 0.04), rgba(255, 235, 172, 0.32), rgba(99, 19, 13, 0.08));
 }
 
 .beam-c {
@@ -122,10 +128,10 @@ input {
 }
 
 .left-rail {
-  padding: 44px 32px 86px;
+  padding: clamp(22px, 4.9vh, 44px) clamp(18px, 2.5vw, 32px) clamp(64px, 9vh, 86px);
   display: grid;
   align-content: start;
-  gap: 34px;
+  gap: clamp(18px, 3.2vh, 34px);
 }
 
 .left-rail::after,
@@ -147,13 +153,13 @@ input {
 }
 
 .brand {
-  min-height: 112px;
+  min-height: clamp(72px, 13vh, 112px);
   display: grid;
   place-items: center;
 }
 
 .brand-logo {
-  width: 112px;
+  width: clamp(74px, 10.2vw, 112px);
   aspect-ratio: 1;
   object-fit: cover;
   border: 2px solid rgba(226, 255, 250, 0.74);
@@ -169,7 +175,7 @@ input {
 
 .stacked-stat .cn,
 .side-stat .cn {
-  font-size: 1.55rem;
+  font-size: clamp(1.02rem, 1.72vw, 1.55rem);
   font-weight: 1000;
   line-height: 1.05;
 }
@@ -177,21 +183,21 @@ input {
 .stacked-stat .en,
 .side-stat .en {
   color: rgba(255, 255, 255, 0.86);
-  font-size: 0.72rem;
+  font-size: clamp(0.58rem, 0.78vw, 0.72rem);
   font-weight: 900;
   line-height: 1;
 }
 
 .stacked-stat strong {
   display: block;
-  margin-top: 10px;
-  font-size: 2.2rem;
+  margin-top: clamp(5px, 1.2vh, 10px);
+  font-size: clamp(1.36rem, 2.45vw, 2.2rem);
   font-weight: 1000;
   line-height: 1;
 }
 
 .center-field {
-  padding: 42px 42px 98px;
+  padding: clamp(22px, 4.8vh, 42px) clamp(24px, 3.2vw, 42px) clamp(72px, 10vh, 98px);
   display: grid;
   grid-template-rows: auto auto 1fr;
   align-items: start;
@@ -201,7 +207,7 @@ input {
   justify-self: center;
   min-height: 32px;
   color: rgba(255, 255, 255, 0.86);
-  font-size: 1.2rem;
+  font-size: clamp(0.9rem, 1.35vw, 1.2rem);
   font-weight: 1000;
   line-height: 1;
   text-shadow: 0 3px 0 rgba(0, 0, 0, 0.48);
@@ -209,8 +215,8 @@ input {
 
 .main-clock {
   justify-self: center;
-  margin-top: 34px;
-  font-size: 10.35rem;
+  margin-top: clamp(12px, 4.2vh, 34px);
+  font-size: clamp(6.2rem, 12.9vw, 10.35rem);
   font-weight: 1000;
   line-height: 0.98;
   color: rgba(255, 255, 255, 0.9);
@@ -225,13 +231,13 @@ input {
   max-width: 720px;
   width: 100%;
   display: grid;
-  gap: 16px;
+  gap: clamp(8px, 1.9vh, 16px);
   padding: 0 8px;
 }
 
 .blind-row {
   display: grid;
-  grid-template-columns: minmax(180px, 0.8fr) minmax(210px, 1fr);
+  grid-template-columns: minmax(150px, 0.8fr) minmax(190px, 1fr);
   align-items: end;
   gap: 18px;
   color: rgba(255, 255, 255, 0.92);
@@ -240,37 +246,37 @@ input {
 
 .blind-row .cn {
   display: block;
-  font-size: 1.7rem;
+  font-size: clamp(1.05rem, 1.95vw, 1.7rem);
   font-weight: 1000;
   line-height: 0.98;
 }
 
 .blind-row .en {
   display: block;
-  font-size: 0.8rem;
+  font-size: clamp(0.58rem, 0.86vw, 0.8rem);
   font-weight: 900;
   line-height: 1.1;
 }
 
 .blind-row strong {
   justify-self: end;
-  font-size: 2rem;
+  font-size: clamp(1.28rem, 2.3vw, 2rem);
   font-weight: 1000;
   line-height: 1;
   white-space: nowrap;
 }
 
 .right-rail {
-  padding: 44px 32px 86px;
+  padding: clamp(22px, 4.9vh, 44px) clamp(18px, 2.5vw, 32px) clamp(64px, 9vh, 86px);
   display: grid;
   align-content: start;
-  gap: 35px;
+  gap: clamp(18px, 3.1vh, 35px);
 }
 
 .wall-clock {
   justify-self: center;
   min-height: 34px;
-  font-size: 1.28rem;
+  font-size: clamp(0.92rem, 1.4vw, 1.28rem);
   font-weight: 1000;
   color: rgba(255, 255, 255, 0.9);
   text-shadow: 0 3px 0 rgba(0, 0, 0, 0.54);
@@ -282,8 +288,8 @@ input {
 
 .side-stat strong {
   display: block;
-  margin-top: 8px;
-  font-size: 1.92rem;
+  margin-top: clamp(4px, 1.05vh, 8px);
+  font-size: clamp(1.18rem, 2.16vw, 1.92rem);
   font-weight: 1000;
   line-height: 1;
   white-space: nowrap;
@@ -293,11 +299,11 @@ input {
   position: absolute;
   left: 0;
   right: 0;
-  bottom: 24px;
+  bottom: clamp(14px, 3.1vh, 24px);
   z-index: 2;
   text-align: center;
   color: rgba(245, 255, 250, 0.94);
-  font-size: 1.48rem;
+  font-size: clamp(0.95rem, 1.6vw, 1.48rem);
   font-weight: 1000;
   letter-spacing: 0;
   text-shadow: 0 4px 0 rgba(0, 0, 0, 0.54);
@@ -690,25 +696,19 @@ input {
 
 @media (max-width: 1120px) {
   body {
-    overflow: auto;
+    overflow: hidden;
   }
 
   .stage {
-    min-width: 980px;
-    place-items: start center;
-  }
-
-  .scoreboard {
-    height: 620px;
-    min-height: 620px;
+    place-items: center;
   }
 
   .main-clock {
-    font-size: 8.5rem;
+    font-size: clamp(4.6rem, 12vw, 8.5rem);
   }
 
   .blind-row strong {
-    font-size: 1.72rem;
+    font-size: clamp(1.08rem, 2.35vw, 1.72rem);
   }
 }
 
@@ -752,26 +752,22 @@ input {
 }
 
 @media (max-height: 680px) and (min-width: 1121px) {
-  .scoreboard {
-    min-height: 560px;
-  }
-
   .left-rail {
-    padding-top: 44px;
-    gap: 28px;
+    padding-top: clamp(20px, 4vh, 36px);
+    gap: clamp(16px, 2.7vh, 26px);
   }
 
   .right-rail {
-    padding-top: 34px;
-    gap: 24px;
+    padding-top: clamp(20px, 4vh, 34px);
+    gap: clamp(15px, 2.5vh, 24px);
   }
 
   .center-field {
-    padding-top: 38px;
+    padding-top: clamp(20px, 4vh, 34px);
   }
 
   .main-clock {
-    font-size: 8.7rem;
-    margin-top: 20px;
+    font-size: clamp(5.6rem, 11.6vw, 8.7rem);
+    margin-top: clamp(10px, 2.8vh, 20px);
   }
 }
