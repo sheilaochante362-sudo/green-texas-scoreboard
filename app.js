@@ -439,6 +439,7 @@ function bindControlEvents() {
     unlockAudio();
     lastLocalTick = Date.now();
     updateState({
+      level: 1,
       levelRemaining: state.levelMinutes * 60,
       entryRemaining: state.entryMinutes * 60,
       breakRemaining: state.breakMinutes * 60,

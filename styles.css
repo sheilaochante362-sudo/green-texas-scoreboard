@@ -78,9 +78,7 @@ input {
   inset: 0;
   content: "";
   z-index: -1;
-  background:
-    linear-gradient(150deg, transparent 0 51%, rgba(255, 212, 118, 0.8) 51.2%, rgba(255, 242, 194, 0.92) 51.45%, rgba(120, 39, 20, 0.2) 52%, transparent 52.5%),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.28), transparent 32%, transparent 67%, rgba(0, 0, 0, 0.36));
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.28), transparent 32%, transparent 67%, rgba(0, 0, 0, 0.36));
   pointer-events: none;
 }
 
@@ -128,10 +126,10 @@ input {
 }
 
 .left-rail {
-  padding: clamp(22px, 4.9vh, 44px) clamp(18px, 2.5vw, 32px) clamp(64px, 9vh, 86px);
+  padding: clamp(40px, 7.1vh, 62px) clamp(18px, 2.5vw, 32px) clamp(54px, 8vh, 76px);
   display: grid;
   align-content: start;
-  gap: clamp(18px, 3.2vh, 34px);
+  gap: clamp(16px, 2.8vh, 29px);
 }
 
 .left-rail::after,
@@ -196,8 +194,27 @@ input {
   line-height: 1;
 }
 
+.stacked-stat strong:has(#playerValue),
+.live-strip strong:has(#playerValue) {
+  display: inline-flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.08em;
+  min-width: 2.8em;
+  font-variant-numeric: tabular-nums;
+}
+
+#playerValue {
+  font-size: 1em;
+}
+
+#playerMaxValue {
+  font-size: 0.72em;
+  opacity: 0.9;
+}
+
 .center-field {
-  padding: clamp(22px, 4.8vh, 42px) clamp(24px, 3.2vw, 42px) clamp(72px, 10vh, 98px);
+  padding: clamp(36px, 6.6vh, 60px) clamp(24px, 3.2vw, 42px) clamp(58px, 8.4vh, 82px);
   display: grid;
   grid-template-rows: auto auto 1fr;
   align-items: start;
@@ -215,7 +232,7 @@ input {
 
 .main-clock {
   justify-self: center;
-  margin-top: clamp(12px, 4.2vh, 34px);
+  margin-top: clamp(18px, 4.6vh, 38px);
   font-size: clamp(6.2rem, 12.9vw, 10.35rem);
   font-weight: 1000;
   line-height: 0.98;
@@ -233,6 +250,7 @@ input {
   display: grid;
   gap: clamp(8px, 1.9vh, 16px);
   padding: 0 8px;
+  transform: translateY(clamp(18px, 4vh, 34px));
 }
 
 .blind-row {
@@ -267,10 +285,10 @@ input {
 }
 
 .right-rail {
-  padding: clamp(22px, 4.9vh, 44px) clamp(18px, 2.5vw, 32px) clamp(64px, 9vh, 86px);
+  padding: clamp(40px, 7.1vh, 62px) clamp(18px, 2.5vw, 32px) clamp(54px, 8vh, 76px);
   display: grid;
   align-content: start;
-  gap: clamp(18px, 3.1vh, 35px);
+  gap: clamp(16px, 2.65vh, 29px);
 }
 
 .wall-clock {
@@ -753,21 +771,21 @@ input {
 
 @media (max-height: 680px) and (min-width: 1121px) {
   .left-rail {
-    padding-top: clamp(20px, 4vh, 36px);
-    gap: clamp(16px, 2.7vh, 26px);
+    padding-top: clamp(30px, 5.4vh, 42px);
+    gap: clamp(14px, 2.35vh, 22px);
   }
 
   .right-rail {
-    padding-top: clamp(20px, 4vh, 34px);
-    gap: clamp(15px, 2.5vh, 24px);
+    padding-top: clamp(30px, 5.4vh, 42px);
+    gap: clamp(14px, 2.2vh, 22px);
   }
 
   .center-field {
-    padding-top: clamp(20px, 4vh, 34px);
+    padding-top: clamp(30px, 5.4vh, 44px);
   }
 
   .main-clock {
     font-size: clamp(5.6rem, 11.6vw, 8.7rem);
-    margin-top: clamp(10px, 2.8vh, 20px);
+    margin-top: clamp(14px, 3vh, 22px);
   }
 }
