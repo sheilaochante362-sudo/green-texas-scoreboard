@@ -1,5 +1,6 @@
 const STORAGE_KEY = "green-texas-scoreboard-state";
 const isControlPage = document.body.dataset.page === "control";
+const isDisplayPage = document.body.dataset.page === "display";
 const isRemote = location.protocol === "http:" || location.protocol === "https:";
 
 const blindStructure = [
@@ -247,6 +248,10 @@ function playChime() {
 function speak(text) {
   unlockAudio();
 
+  if (document.hidden) {
+    return;
+  }
+
   if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
     playChime();
     return;
@@ -279,12 +284,40 @@ function drainSpeechQueue() {
   window.speechSynthesis.speak(utterance);
 }
 
+function cancelSpeech() {
+  speechQueue = [];
+  isSpeaking = false;
+  try {
+    window.speechSynthesis?.cancel();
+  } catch {
+    // Some embedded browsers expose a partial speech API.
+  }
+}
+
+function formatSpeechNumber(value) {
+  return Number(value || 0).toLocaleString("zh-CN");
+}
+
+function buildLevelAnnouncement(targetLevel) {
+  const blind = blindForLevel(targetLevel);
+  const parts = [
+    `下个级别第${targetLevel}级别`,
+    `小盲${formatSpeechNumber(blind.smallBlind)}`,
+    `大盲${formatSpeechNumber(blind.bigBlind)}`,
+  ];
+
+  parts.push(blind.ante > 0 ? `预置分${formatSpeechNumber(blind.ante)}` : "无预置分");
+  return parts.join("，");
+}
+
 function playLevelSound(targetLevel = state.level + 1) {
-  speak(`升盲啦，下一个是第${targetLevel}级别`);
+  playChime();
+  window.setTimeout(() => speak(buildLevelAnnouncement(targetLevel)), 720);
 }
 
 function playFinalTableSound() {
-  speak("恭喜进入决赛圈");
+  playChime();
+  window.setTimeout(() => speak("恭喜进入决赛圈"), 720);
 }
 
 function watchLevelSound() {
@@ -500,6 +533,27 @@ function bindDisplayEvents() {
     }
     await el.scoreboard.requestFullscreen();
   });
+
+  fitDisplayBoard();
+  window.addEventListener("resize", fitDisplayBoard);
+  window.addEventListener("orientationchange", () => setTimeout(fitDisplayBoard, 260));
+}
+
+function fitDisplayBoard() {
+  if (!isDisplayPage || !el.scoreboard) {
+    return;
+  }
+
+  const shouldScale = window.innerWidth < 980 || window.innerHeight < 560;
+  if (!shouldScale) {
+    document.body.classList.remove("scaled-display");
+    document.body.style.removeProperty("--display-scale");
+    return;
+  }
+
+  const scale = Math.min((window.innerWidth - 12) / 1280, (window.innerHeight - 12) / 720, 1);
+  document.body.classList.add("scaled-display");
+  document.body.style.setProperty("--display-scale", String(Math.max(0.1, scale)));
 }
 
 function connectEvents() {
@@ -557,6 +611,13 @@ function localTick() {
 
 async function start() {
   state = loadLocalState();
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      cancelSpeech();
+    }
+  });
+  window.addEventListener("pagehide", cancelSpeech);
+  window.addEventListener("beforeunload", cancelSpeech);
   bindControlEvents();
   bindDisplayEvents();
   await fetchState();

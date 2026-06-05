@@ -28,6 +28,12 @@ body {
   overflow: hidden;
 }
 
+body.scaled-display {
+  width: 100vw;
+  height: 100dvh;
+  overflow: hidden;
+}
+
 button,
 input {
   font: inherit;
@@ -89,6 +95,24 @@ input {
   border: 0;
 }
 
+body.scaled-display .stage {
+  width: 100vw;
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
+  padding: 0;
+}
+
+body.scaled-display .scoreboard {
+  width: 1280px;
+  height: 720px;
+  min-width: 1280px;
+  min-height: 720px;
+  aspect-ratio: auto;
+  transform: scale(var(--display-scale, 1));
+  transform-origin: center center;
+}
+
 .beam {
   position: absolute;
   top: -22%;
@@ -123,6 +147,26 @@ input {
   position: relative;
   z-index: 1;
   min-width: 0;
+}
+
+.left-rail > *,
+.right-rail > * {
+  position: relative;
+}
+
+.left-rail > .stacked-stat:not(:last-child)::after,
+.right-rail > :not(:last-child)::after {
+  position: absolute;
+  left: 9%;
+  right: 9%;
+  bottom: 0;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(255, 222, 154, 0.85), rgba(255, 82, 82, 0.55), rgba(255, 222, 154, 0.85), transparent);
+  box-shadow:
+    0 0 9px rgba(255, 216, 123, 0.62),
+    0 0 18px rgba(255, 65, 82, 0.34);
+  opacity: 0.78;
 }
 
 .left-rail {
@@ -221,6 +265,29 @@ input {
   display: grid;
   grid-template-rows: auto auto 1fr;
   align-items: start;
+}
+
+.center-field::before,
+.center-field::after {
+  position: absolute;
+  left: 5.5%;
+  right: 5.5%;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(255, 226, 168, 0.72), rgba(255, 92, 92, 0.48), rgba(255, 226, 168, 0.72), transparent);
+  box-shadow:
+    0 0 10px rgba(255, 214, 121, 0.54),
+    0 0 20px rgba(255, 67, 86, 0.26);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.center-field::before {
+  top: 57%;
+}
+
+.center-field::after {
+  top: 78%;
 }
 
 .level-duration {
