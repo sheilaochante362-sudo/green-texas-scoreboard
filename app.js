@@ -62,6 +62,8 @@ let knownPlayers = null;
 let audioContext = null;
 let speechQueue = [];
 let isSpeaking = false;
+let soundGate = null;
+let audioPrimed = false;
 
 const el = {
   scoreboard: byId("scoreboard"),
@@ -213,10 +215,14 @@ function unlockAudio() {
   try {
     const AudioContextClass = window.AudioContext || window.webkitAudioContext;
     if (!AudioContextClass) {
+      audioPrimed = true;
+      updateSoundGate();
       return null;
     }
     audioContext ||= new AudioContextClass();
     audioContext.resume?.();
+    audioPrimed = true;
+    updateSoundGate();
     return audioContext;
   } catch {
     return null;
@@ -224,6 +230,10 @@ function unlockAudio() {
 }
 
 function playChime() {
+  if (document.hidden) {
+    return;
+  }
+
   const context = unlockAudio();
   if (!context) {
     return;
@@ -294,6 +304,48 @@ function cancelSpeech() {
   }
 }
 
+function updateSoundGate() {
+  if (!soundGate) {
+    return;
+  }
+
+  soundGate.classList.toggle("hidden", audioPrimed);
+}
+
+function setupDisplaySoundGate() {
+  if (!isDisplayPage || soundGate) {
+    return;
+  }
+
+  soundGate = document.createElement("button");
+  soundGate.className = "sound-gate";
+  soundGate.type = "button";
+  soundGate.textContent = "开启播报";
+  soundGate.addEventListener("pointerdown", (event) => {
+    event.stopPropagation();
+    unlockAudio();
+    playChime();
+  });
+  document.body.append(soundGate);
+
+  document.addEventListener(
+    "pointerdown",
+    () => {
+      unlockAudio();
+    },
+    { once: true },
+  );
+  document.addEventListener(
+    "keydown",
+    () => {
+      unlockAudio();
+    },
+    { once: true },
+  );
+
+  updateSoundGate();
+}
+
 function formatSpeechNumber(value) {
   return Number(value || 0).toLocaleString("zh-CN");
 }
@@ -327,7 +379,9 @@ function watchLevelSound() {
   }
 
   if (state.level > knownLevel) {
-    playLevelSound(state.level);
+    if (isDisplayPage) {
+      playLevelSound(state.level);
+    }
   }
 
   knownLevel = state.level;
@@ -340,7 +394,9 @@ function watchPlayerAnnouncements() {
   }
 
   if (knownPlayers > 2 && state.players === 2) {
-    playFinalTableSound();
+    if (isDisplayPage) {
+      playFinalTableSound();
+    }
   }
 
   knownPlayers = state.players;
@@ -525,6 +581,8 @@ function bindDisplayEvents() {
   if (isControlPage) {
     return;
   }
+
+  setupDisplaySoundGate();
 
   document.addEventListener("dblclick", async () => {
     if (!el.scoreboard || document.fullscreenElement) {

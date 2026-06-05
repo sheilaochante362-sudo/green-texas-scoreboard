@@ -267,29 +267,6 @@ body.scaled-display .scoreboard {
   align-items: start;
 }
 
-.center-field::before,
-.center-field::after {
-  position: absolute;
-  left: 5.5%;
-  right: 5.5%;
-  height: 2px;
-  content: "";
-  background: linear-gradient(90deg, transparent, rgba(255, 226, 168, 0.72), rgba(255, 92, 92, 0.48), rgba(255, 226, 168, 0.72), transparent);
-  box-shadow:
-    0 0 10px rgba(255, 214, 121, 0.54),
-    0 0 20px rgba(255, 67, 86, 0.26);
-  opacity: 0.72;
-  pointer-events: none;
-}
-
-.center-field::before {
-  top: 57%;
-}
-
-.center-field::after {
-  top: 78%;
-}
-
 .level-duration {
   justify-self: center;
   min-height: 32px;
@@ -318,18 +295,34 @@ body.scaled-display .scoreboard {
   max-width: 720px;
   width: 100%;
   display: grid;
-  gap: clamp(8px, 1.9vh, 16px);
+  gap: clamp(12px, 2.4vh, 22px);
   padding: 0 8px;
   transform: translateY(clamp(18px, 4vh, 34px));
 }
 
 .blind-row {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(150px, 0.8fr) minmax(190px, 1fr);
   align-items: end;
   gap: 18px;
   color: rgba(255, 255, 255, 0.92);
   text-shadow: 0 3px 0 rgba(0, 0, 0, 0.56);
+}
+
+.blind-row:not(:last-child)::after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(clamp(12px, 2.4vh, 22px) * -0.5);
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(255, 226, 168, 0.58), rgba(255, 92, 92, 0.36), rgba(255, 226, 168, 0.58), transparent);
+  box-shadow:
+    0 0 8px rgba(255, 214, 121, 0.38),
+    0 0 16px rgba(255, 67, 86, 0.18);
+  opacity: 0.62;
+  pointer-events: none;
 }
 
 .blind-row .cn {
@@ -420,6 +413,30 @@ body.scaled-display .scoreboard {
 .connection-status.offline {
   color: #ffe8c5;
   border-color: rgba(255, 210, 138, 0.38);
+}
+
+.sound-gate {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 21;
+  min-width: 110px;
+  min-height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 232, 173, 0.5);
+  border-radius: 6px;
+  color: #fff6d8;
+  background: rgba(39, 8, 8, 0.74);
+  box-shadow: 0 0 18px rgba(255, 76, 72, 0.24);
+  font-size: 0.86rem;
+  font-weight: 1000;
+  backdrop-filter: blur(10px);
+}
+
+.sound-gate.hidden {
+  display: none;
 }
 
 .admin-body {
