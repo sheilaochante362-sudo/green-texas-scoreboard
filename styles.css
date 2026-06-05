@@ -291,6 +291,7 @@ body.scaled-display .scoreboard {
 }
 
 .blind-board {
+  position: relative;
   align-self: center;
   max-width: 720px;
   width: 100%;
@@ -298,6 +299,29 @@ body.scaled-display .scoreboard {
   gap: clamp(12px, 2.4vh, 22px);
   padding: 0 8px;
   transform: translateY(clamp(18px, 4vh, 34px));
+}
+
+.blind-board::before,
+.blind-board::after {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(255, 226, 168, 0.6), rgba(255, 92, 92, 0.36), rgba(255, 226, 168, 0.6), transparent);
+  box-shadow:
+    0 0 8px rgba(255, 214, 121, 0.38),
+    0 0 16px rgba(255, 67, 86, 0.18);
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.blind-board::before {
+  top: calc(clamp(12px, 2.4vh, 22px) * -0.8);
+}
+
+.blind-board::after {
+  bottom: calc(clamp(12px, 2.4vh, 22px) * -0.8);
 }
 
 .blind-row {
@@ -308,21 +332,6 @@ body.scaled-display .scoreboard {
   gap: 18px;
   color: rgba(255, 255, 255, 0.92);
   text-shadow: 0 3px 0 rgba(0, 0, 0, 0.56);
-}
-
-.blind-row:not(:last-child)::after {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(clamp(12px, 2.4vh, 22px) * -0.5);
-  height: 2px;
-  content: "";
-  background: linear-gradient(90deg, transparent, rgba(255, 226, 168, 0.58), rgba(255, 92, 92, 0.36), rgba(255, 226, 168, 0.58), transparent);
-  box-shadow:
-    0 0 8px rgba(255, 214, 121, 0.38),
-    0 0 16px rgba(255, 67, 86, 0.18);
-  opacity: 0.62;
-  pointer-events: none;
 }
 
 .blind-row .cn {

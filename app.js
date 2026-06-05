@@ -320,11 +320,12 @@ function setupDisplaySoundGate() {
   soundGate = document.createElement("button");
   soundGate.className = "sound-gate";
   soundGate.type = "button";
-  soundGate.textContent = "开启播报";
+  soundGate.textContent = "开启自动播报";
   soundGate.addEventListener("pointerdown", (event) => {
     event.stopPropagation();
     unlockAudio();
     playChime();
+    window.setTimeout(() => speak("播报已开启"), 360);
   });
   document.body.append(soundGate);
 
